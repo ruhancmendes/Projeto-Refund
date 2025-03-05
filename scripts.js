@@ -119,12 +119,12 @@ function updateTotals() {
     let total = 0;
 
     // Percorre cada item (li) da lista (ul)
-    for (let item = 0; item < items.length; item++) {
+   for (let item = 0; item < items.length; item++) {
       const itemAmount = items[item].querySelector(".expense-amount");
 
       // Remove caracteres não numéricos e substitui vírgula por ponto
       let value = itemAmount.textContent
-        .replace(/[^\d]/g, "")
+        .replace(/[^\d,]/g, "")
         .replace(",", ".");
 
       // Converte o valore para float
@@ -138,6 +138,19 @@ function updateTotals() {
       // Incrementa o valor total
       total += Number(value)
     }
+
+    //Cria a span para adicionar o R$
+    const symbolBRL = document.createElement("small")
+    symbolBRL.textContent = "R$"
+
+    //  Formata o valor e remove o R$ que será exibido pela small com um estilo personalizado
+    total = formatCurrencyBRL(total).toUpperCase().replace("R$", "")
+
+    // Limpa o conteúdo do elemento
+    expensesTotal.innerHTML = ""
+
+    // Adiciona o símbolo da moeda e o valor total formatado
+    expensesTotal.append(symbolBRL, total)
 
   } catch (error) {
     console.log(error);
