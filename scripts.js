@@ -7,7 +7,7 @@ const category = document.getElementById("category");
 // Seleciona os elementos da lista
 const expenseList = document.querySelector("ul");
 const expensesQuantity = document.querySelector("aside header p span");
-const expensesTotal = document.querySelector("aside header h2")
+const expensesTotal = document.querySelector("aside header h2");
 
 // Captura o evento de input para formatar o valor.
 amount.oninput = () => {
@@ -119,7 +119,7 @@ function updateTotals() {
     let total = 0;
 
     // Percorre cada item (li) da lista (ul)
-   for (let item = 0; item < items.length; item++) {
+    for (let item = 0; item < items.length; item++) {
       const itemAmount = items[item].querySelector(".expense-amount");
 
       // Remove caracteres não numéricos e substitui vírgula por ponto
@@ -136,24 +136,36 @@ function updateTotals() {
       }
 
       // Incrementa o valor total
-      total += Number(value)
+      total += Number(value);
     }
 
     //Cria a span para adicionar o R$
-    const symbolBRL = document.createElement("small")
-    symbolBRL.textContent = "R$"
+    const symbolBRL = document.createElement("small");
+    symbolBRL.textContent = "R$";
 
     //  Formata o valor e remove o R$ que será exibido pela small com um estilo personalizado
-    total = formatCurrencyBRL(total).toUpperCase().replace("R$", "")
+    total = formatCurrencyBRL(total).toUpperCase().replace("R$", "");
 
     // Limpa o conteúdo do elemento
-    expensesTotal.innerHTML = ""
+    expensesTotal.innerHTML = "";
 
     // Adiciona o símbolo da moeda e o valor total formatado
-    expensesTotal.append(symbolBRL, total)
-
+    expensesTotal.append(symbolBRL, total);
   } catch (error) {
     console.log(error);
     alert("Não foi possível atualizar os totais.");
   }
 }
+
+// Evento que captura o clique nos itens da lista
+expenseList.addEventListener("click", function (event) {
+  // Verifica se o elemento clicado  é o ícone de remover
+  if (event.target.classList.contains("remove-icon")) {
+    // Obtém o li pai do elemento clicado
+    const item = event.target.closest(".expense")
+    // Remove o item da lista
+    item.remove()
+  }
+  // Atualiza os totais
+  updateTotals()
+});
