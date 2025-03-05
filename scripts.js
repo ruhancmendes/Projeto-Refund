@@ -58,7 +58,7 @@ function expenseAdd(newExpense) {
     expenseItem.classList.add("expense");
 
     // Cria o ícone da categoria.
-    const expenseIcon = document.createElement("span");
+    const expenseIcon = document.createElement("img");
     expenseIcon.setAttribute("src", `img/${newExpense.category_id}.svg`);
     expenseIcon.setAttribute("alt", newExpense.category_name);
 
